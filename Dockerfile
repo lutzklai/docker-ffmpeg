@@ -1,6 +1,6 @@
 ###############################
 # Build the FFmpeg-build image.
-FROM alpine:3.11 as build
+FROM alpine:3.8 as build
 
 ARG FFMPEG_VERSION=4.2.2
 
@@ -23,8 +23,6 @@ RUN apk add --update \
   libwebp-dev \
   libtheora-dev \
   opus-dev \
-  openssl \
-  openssl-dev \
   pkgconf \
   pkgconfig \
   rtmpdump-dev \
@@ -73,7 +71,7 @@ RUN rm -rf /var/cache/apk/* /tmp/*
 
 ##########################
 # Build the release image.
-FROM alpine:3.11
+FROM alpine:3.8
 LABEL MAINTAINER Alfred Gutierrez <alf.g.jr@gmail.com>
 ENV PATH=/opt/ffmpeg/bin:$PATH
 

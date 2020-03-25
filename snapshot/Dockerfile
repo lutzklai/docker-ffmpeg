@@ -1,6 +1,6 @@
 ###############################
 # Build the FFmpeg-build image.
-FROM alpine:3.11 as build
+FROM alpine:3.8 as build
 
 ARG FFMPEG_VERSION=ffmpeg-snapshot.tar.bz2
 ARG AOM_VERSION=master
@@ -25,8 +25,6 @@ RUN apk add --update \
   libtheora-dev \
   libtool \
   opus-dev \
-  openssl \
-  openssl-dev \
   perl \
   pkgconf \
   pkgconfig \
@@ -88,7 +86,7 @@ RUN rm -rf /var/cache/apk/* /tmp/*
 
 ##########################
 # Build the release image.
-FROM alpine:3.11
+FROM alpine:3.8
 LABEL MAINTAINER Alfred Gutierrez <alf.g.jr@gmail.com>
 ENV PATH=/opt/ffmpeg/bin:$PATH
 
