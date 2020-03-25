@@ -37,10 +37,6 @@ RUN apk add --update \
   x265-dev \
   yasm
 
-# Install fdk-aac from testing.
-RUN echo http://dl-cdn.alpinelinux.org/alpine/edge/testing >> /etc/apk/repositories && \
-  apk add --update fdk-aac-dev
-
 # Build libaom for av1.
 RUN mkdir -p /tmp/aom && cd /tmp/ && \
   wget https://aomedia.googlesource.com/aom/+archive/${AOM_VERSION}.tar.gz && \
@@ -71,7 +67,6 @@ RUN cd /tmp/ffmpeg && \
   --enable-libtheora \
   --enable-libvorbis \
   --enable-libopus \
-  --enable-libfdk-aac \
   --enable-libass \
   --enable-libwebp \
   --enable-librtmp \
@@ -115,6 +110,5 @@ RUN apk add --update \
 
 COPY --from=build /opt/ffmpeg /opt/ffmpeg
 COPY --from=build /opt/ffmpeg/lib64/libaom.so.0 /usr/lib/libaom.so.0
-COPY --from=build /usr/lib/libfdk-aac.so.2 /usr/lib/libfdk-aac.so.2
 
 CMD ["/opt/ffmpeg/bin/ffmpeg"]

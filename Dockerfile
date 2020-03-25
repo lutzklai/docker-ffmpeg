@@ -33,10 +33,6 @@ RUN apk add --update \
   x265-dev \
   yasm
 
-# Get fdk-aac from testing.
-RUN echo http://dl-cdn.alpinelinux.org/alpine/edge/testing >> /etc/apk/repositories && \
-  apk add --update fdk-aac-dev
-
 # Get ffmpeg source.
 RUN cd /tmp/ && \
   wget http://ffmpeg.org/releases/ffmpeg-${FFMPEG_VERSION}.tar.gz && \
@@ -56,7 +52,6 @@ RUN cd /tmp/ffmpeg-${FFMPEG_VERSION} && \
   --enable-libtheora \
   --enable-libvorbis \
   --enable-libopus \
-  --enable-libfdk-aac \
   --enable-libass \
   --enable-libwebp \
   --enable-librtmp \
@@ -99,6 +94,5 @@ RUN apk add --update \
   x265-dev
 
 COPY --from=build /opt/ffmpeg /opt/ffmpeg
-COPY --from=build /usr/lib/libfdk-aac.so.2 /usr/lib/libfdk-aac.so.2
 
 CMD ["/usr/local/bin/ffmpeg"]
